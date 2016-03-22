@@ -9,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,6 +55,7 @@ public class MainActivity extends Activity
 
         fm = getFragmentManager();
 
+        ft = getFragmentManager().beginTransaction();
 
         fragment1 = new Fragment1();
 
@@ -70,27 +72,30 @@ public class MainActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        StaticData.sWidth = metrics.widthPixels;
+        StaticData.sHeight = metrics.heightPixels;
+
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        ft = getFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = getFragmentManager();
         switch (position) {
             case 0:
-                ft.replace(R.id.container, fragment1)
-                        .commit();
+                fragmentManager.beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(position)).commit();
                 break;
             case 1:
-                ft.replace(R.id.container, fragment2)
-                        .commit();
+                fragmentManager.beginTransaction().replace(R.id.container, fragment2).commit();
                 break;
             case 2:
-                ft.replace(R.id.container, fragment3)
-                        .commit();
+                fragmentManager.beginTransaction().replace(R.id.container, fragment3).commit();
                 break;
         }
-        ft.commit();
+        onSectionAttached(position);
+
     }
 
     public void onSectionAttached(int number) {
