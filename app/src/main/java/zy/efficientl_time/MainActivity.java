@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,10 +17,14 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import zy.efficientl_time.ui.Fragment1;
 import zy.efficientl_time.ui.Fragment2;
 import zy.efficientl_time.ui.Fragment3;
+import zy.efficientl_time.ui.MyImageView;
 import zy.efficientl_time.ui.NavigationDrawerFragment;
+import zy.efficientl_time.ui.TimeCountdown;
 
 
 public class MainActivity extends Activity
@@ -40,6 +45,10 @@ public class MainActivity extends Activity
 
     private Fragment3 fragment3;
 
+    private MyImageView startButton;
+
+    private TimeCountdown tc;
+
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -53,12 +62,6 @@ public class MainActivity extends Activity
         fm = getFragmentManager();
 
         ft = getFragmentManager().beginTransaction();
-
-        fragment1 = new Fragment1();
-
-        fragment2 = new Fragment2();
-
-        fragment3 = new Fragment3();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -74,23 +77,43 @@ public class MainActivity extends Activity
         StaticData.sWidth = metrics.widthPixels;
         StaticData.sHeight = metrics.heightPixels;
 
+
+
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        hideFragment(ft);
         switch (position) {
             case 0:
-                fragmentManager.beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(position)).commit();
+                if (fragment1 != null)
+                    ft.show(fragment1);
+                else {
+                    fragment1 = new Fragment1();
+                    ft.add(R.id.container, fragment1);
+                }
                 break;
             case 1:
-                fragmentManager.beginTransaction().replace(R.id.container, fragment2).commit();
+                if (fragment2 != null)
+                    ft.show(fragment2);
+                else {
+                    fragment2 = new Fragment2();
+                    ft.add(R.id.container, fragment2);
+                }
                 break;
             case 2:
-                fragmentManager.beginTransaction().replace(R.id.container, fragment3).commit();
+                if (StaticData.f3 != null)
+                    ft.show(StaticData.f3);
+                else {
+                    StaticData.f3 = new Fragment3();
+                    ft.add(R.id.container, StaticData.f3);
+                }
                 break;
         }
+        ft.commit();
         onSectionAttached(position);
 
     }
@@ -189,4 +212,13 @@ public class MainActivity extends Activity
         }
     }
 
+
+    private void hideFragment(FragmentTransaction ft) {
+        if (fragment1 != null)
+            ft.hide(fragment1);
+        if (fragment2 != null)
+            ft.hide(fragment2);
+        if (StaticData.f3 != null)
+            ft.hide(StaticData.f3);
+    }
 }
