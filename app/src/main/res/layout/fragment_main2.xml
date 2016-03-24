@@ -1,28 +1,50 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/f3_pl"
+    android:layout_width="match_parent"  android:layout_height="match_parent"
+    android:background="#6589FF" >
+
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#e85454"
-    tools:context=".MainActivity$PlaceholderFragment">
+    android:background="#6589FF"
+    tools:context=".MainActivity$PlaceholderFragment">-->
 
-    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_section3"/>
-
+<!--#e85454-->
     <zy.efficientl_time.ui.TimeCountdown
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/CountDown"/>
+        android:id="@+id/CountDown"
+        android:visibility="invisible"/>
     <zy.efficientl_time.ui.MyImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/video"
+        app:layout_marginPercent="10%"
         android:id="@+id/startButton"/>
+    <zy.efficientl_time.ui.MyImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/circle"
+        android:visibility="invisible"
+        app:layout_marginPercent="10%"
+        android:id="@+id/endButton"/>
+
+
+    </android.support.percent.PercentRelativeLayout>
 
 
 
-</RelativeLayout>
+<!--</RelativeLayout>-->

@@ -26,7 +26,7 @@ public class TimeCountdown extends View {
 
     private float radius;
 
-    private float totalTime;
+    private long totalTime;
 
     private long passTime;
 
@@ -91,20 +91,19 @@ public class TimeCountdown extends View {
         float baseLight = (rect.bottom + rect.top - fm.top - fm.bottom) / 2;
         canvas.drawCircle(cx, cy, radius, totalPaint);
         passTime = (Calendar.getInstance().getTimeInMillis() - StaticData.startTime) / 1000;
+        if (passTime > totalTime) passTime = totalTime;
         int min = (int)(totalTime - passTime) / 60;
         int sec = (int)(totalTime - passTime) % 60;
         String t = "";
-        if (min < 10)
-            t += "0";
+        if (min < 10) t += "0";
         t = t + min + " : ";
-        if (sec < 10)
-            t += "0";
+        if (sec < 10) t += "0";
         t += sec;
         canvas.drawText(t, rect.centerX(), baseLight, time);
 
         if (passTime <= totalTime) {
             Log.i("passTime", ""+passTime);
-            angel = passTime / totalTime * 360;
+            angel = (float)(passTime * 1.0 / totalTime * 360);
             RectF oval = new RectF();
             oval.left = cx - radius;
             oval.top = cy - radius;

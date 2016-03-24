@@ -1,6 +1,7 @@
 package zy.efficientl_time.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -21,53 +22,10 @@ public class MyImageView extends ImageButton {
 
     public MyImageView(final Context context) {
         super(context);
-        setBackgroundResource(R.drawable.video);
-        tc = (TimeCountdown)StaticData.f3.getActivity().findViewById(R.id.CountDown);
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StaticData.startTime = Calendar.getInstance().getTimeInMillis();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (Calendar.getInstance().getTimeInMillis() - StaticData.startTime < StaticData.time * 3000) {
-                            tc.postInvalidate();
-                            try {
-                                Thread.sleep(100);
-                            } catch (Exception e) {
-
-                            }
-                        }
-                    }
-                }).start();
-            }
-        });
     }
 
     public MyImageView(Context context, AttributeSet attr) {
         super(context, attr);
-        setBackgroundResource(R.drawable.video);
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StaticData.startTime = Calendar.getInstance().getTimeInMillis();
-                StaticData.tc = (TimeCountdown)StaticData.f3.getActivity().findViewById(R.id.CountDown);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while ((Calendar.getInstance().getTimeInMillis() - StaticData.startTime)/1000 <= StaticData.time) {
-                            Log.i("refresh", "timecount");
-                            StaticData.tc.postInvalidate();
-                            try {
-                                Thread.sleep(100);
-                            } catch (Exception e) {
-
-                            }
-                        }
-                    }
-                }).start();
-            }
-        });
     }
 
 

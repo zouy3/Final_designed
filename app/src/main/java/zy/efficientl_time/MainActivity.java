@@ -90,30 +90,33 @@ public class MainActivity extends Activity
         switch (position) {
             case 0:
                 if (fragment1 != null)
-                    ft.show(fragment1);
+                    ft.show(fragment1).commit();
                 else {
                     fragment1 = new Fragment1();
-                    ft.add(R.id.container, fragment1);
+                    ft.add(R.id.container, fragment1).commit();
                 }
                 break;
             case 1:
                 if (fragment2 != null)
-                    ft.show(fragment2);
+                    ft.show(fragment2).commit();
                 else {
                     fragment2 = new Fragment2();
-                    ft.add(R.id.container, fragment2);
+                    ft.add(R.id.container, fragment2).commit();
                 }
                 break;
             case 2:
                 if (StaticData.f3 != null)
-                    ft.show(StaticData.f3);
+                    ft.show(StaticData.f3).commit();
                 else {
                     StaticData.f3 = new Fragment3();
-                    ft.add(R.id.container, StaticData.f3);
+                    ft.add(R.id.container, StaticData.f3).commit();
+        /*            startButton = (MyImageView)StaticData.f3.getActivity().findViewById(R.id.startButton);
+                    StaticData.tc = (TimeCountdown)StaticData.f3.getActivity().findViewById(R.id.CountDown);
+                    tc.setVisibility(View.INVISIBLE);
+                    startButton.setPadding(0, 0, 0, 0);*/
                 }
                 break;
         }
-        ft.commit();
         onSectionAttached(position);
 
     }
